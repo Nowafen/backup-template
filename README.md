@@ -49,6 +49,6 @@ Matchers look for HTTP 200 responses and keywords like:
 
 4. (Optional) Copy into your custom templates folder:
    ```bash
-   cp -r backup-template/ ~/nuclei-templates/custom/backup-template
+   cp -r backup-template/ ~/nuclei-templates/http/backup-template
    nuclei -t http/backup-template -l targets.txt
    ```
