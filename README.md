@@ -52,5 +52,3 @@ Matchers look for HTTP 200 responses and keywords like:
    cp -r backup-template/ ~/nuclei-templates/custom/backup-template
    nuclei -t http/backup-template -l targets.txt
    ```
-
-```
