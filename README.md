@@ -1,31 +1,56 @@
-# Backup Template
+## Backup Template for Nuclei
 
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
-## Overview
+## Introduction
 
-**Backup Template** is a Nuclei template for scanning and detecting exposed sensitive files, credentials, configuration files, backups, logs, and potential information leakage on web servers.
+This **Backup Template** is a [Nuclei](https://github.com/projectdiscovery/nuclei) template that finds exposed **sensitive files**, **backup archives**, and **configuration files** on web servers. It’s useful for:
 
-This template helps security researchers, pentesters, and bug bounty hunters to quickly identify common sensitive files and backups accidentally exposed to the internet.
-
----
-
-## Template Details
-
-- Detects files like `.env`, `config.php`, `credentials.json`, database dumps, backup archives, logs, CI/CD configs, and more.
-- Matches HTTP 200 responses containing keywords related to passwords, secrets, keys, tokens, and other sensitive information.
-- Includes deep paths, old backups, and version control files.
+- Security researchers
+- Penetration testers
+- Bug bounty hunters
+- Blue teams
 
 ---
+
+## What It Detects
+
+Common files and endpoints such as:
+- `.env`, `.git/config`
+- `config.php`, `credentials.json`
+- `db.sql`, `backup.sql`, `.dump`
+- `error.log`, `debug.log`, `laravel.log`
+- `backup.zip`, `.tar.gz`, `.bak`, `.7z`
+- Editor temp files (`.swp`, `.bak`)
+
+Matchers look for HTTP 200 responses and keywords like:
+- `password`
+- `secret`
+- `token`
+- `Authorization:`
+
 
 ## Usage
 
-1. **Prerequisites**
+1. Install Nuclei (if not already):
+   ```bash
+   go install -v github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest
+   ```
 
-Make sure you have [Nuclei](https://github.com/projectdiscovery/nuclei) installed and set up on your system.
+2. Clone this repository:
+   ```bash
+   git clone https://github.com/Nowafen/backup-template.git
+   ```
 
-2. **Clone this repository**
+3. Run against a single URL:
+   ```bash
+   nuclei -t backup-template/ -u https://example.com
+   ```
 
-```bash
-git clone https://github.com/Nowafen/backup-template.git
-cd backup-template
+4. (Optional) Copy into your custom templates folder:
+   ```bash
+   cp -r backup-template/ ~/nuclei-templates/custom/backup-template
+   nuclei -t http/backup-template -l targets.txt
+   ```
+
+```
