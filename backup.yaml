@@ -1,0 +1,311 @@
+id: information-leakage
+info:
+  name: Credential and Info Leakage Sensitive Files Fuzzing
+  author: MNM
+  severity: medium
+  description: Scan for sensitive files and credentials with reduced false positives.
+  tags:
+    - discovery
+    - files
+    - sensitive
+    - credential
+    - information
+  reference:
+    - https://github.com/projectdiscovery/nuclei-templates
+
+requests:
+  - method: GET
+    path:
+      # credential & config files
+      - "{{BaseURL}}/.env"
+      - "{{BaseURL}}/.env.bak"
+      - "{{BaseURL}}/.env.backup"
+      - "{{BaseURL}}/.env.old"
+      - "{{BaseURL}}/.env.local"
+      - "{{BaseURL}}/.env.production"
+      - "{{BaseURL}}/config.php"
+      - "{{BaseURL}}/config.json"
+      - "{{BaseURL}}/config.yaml"
+      - "{{BaseURL}}/config.yml"
+      - "{{BaseURL}}/config/config.php"
+      - "{{BaseURL}}/wp-config.php"
+      - "{{BaseURL}}/wp-config.bak"
+      - "{{BaseURL}}/credentials.json"
+      - "{{BaseURL}}/credentials.txt"
+      - "{{BaseURL}}/secrets.txt"
+      - "{{BaseURL}}/secrets.env"
+      - "{{BaseURL}}/secret.key"
+      - "{{BaseURL}}/.git-credentials"
+      - "{{BaseURL}}/.aws/credentials"
+      - "{{BaseURL}}/.npmrc"
+      - "{{BaseURL}}/.dockercfg"
+      - "{{BaseURL}}/.docker/config.json"
+      - "{{BaseURL}}/.vscode/settings.json"
+      - "{{BaseURL}}/.idea/workspace.xml"
+
+      # database & backup files
+      - "{{BaseURL}}/backup.zip"
+      - "{{BaseURL}}/backup.tar.gz"
+      - "{{BaseURL}}/db.sql"
+      - "{{BaseURL}}/database.sql"
+      - "{{BaseURL}}/db_backup.sql"
+      - "{{BaseURL}}/mysql.sql"
+      - "{{BaseURL}}/sqlite.db"
+      - "{{BaseURL}}/backup/backup.db"
+      - "{{BaseURL}}/dump.sql"
+      - "{{BaseURL}}/dump.rdb"
+      - "{{BaseURL}}/dump.tar"
+      - "{{BaseURL}}/db/dump.sql"
+      - "{{BaseURL}}/old_site.zip"
+      - "{{BaseURL}}/old-db.sql"
+      - "{{BaseURL}}/dumps/db.sql"
+      - "{{BaseURL}}/old/db_backup.sql"
+
+      # development artifacts & environment files
+      - "{{BaseURL}}/debug.log"
+      - "{{BaseURL}}/error.log"
+      - "{{BaseURL}}/logs/debug.log"
+      - "{{BaseURL}}/logs/error.log"
+      - "{{BaseURL}}/.vscode/launch.json"
+      - "{{BaseURL}}/build.log"
+      - "{{BaseURL}}/ci.log"
+      - "{{BaseURL}}/.env.test"
+      - "{{BaseURL}}/.env.dev"
+      - "{{BaseURL}}/.env.stage"
+      - "{{BaseURL}}/.env.debug"
+      - "{{BaseURL}}/node_modules/.env"
+      - "{{BaseURL}}/.next/BUILD_ID"
+      - "{{BaseURL}}/.next/server/pages/api/test.js"
+      - "{{BaseURL}}/.nuxt/dist/server/index.ssr.js"
+
+      # version control system files
+      - "{{BaseURL}}/.git/config"
+      - "{{BaseURL}}/.git/HEAD"
+      - "{{BaseURL}}/.gitignore"
+      - "{{BaseURL}}/.gitkeep"
+      - "{{BaseURL}}/.git/logs/HEAD"
+      - "{{BaseURL}}/.svn/entries"
+      - "{{BaseURL}}/.hg/hgrc"
+      - "{{BaseURL}}/.bzr/checkout/"
+      - "{{BaseURL}}/.gitmodules"
+
+      # ci/cd & docker files
+      - "{{BaseURL}}/.github/workflows/ci.yml"
+      - "{{BaseURL}}/.gitlab-ci.yml"
+      - "{{BaseURL}}/.circleci/config.yml"
+      - "{{BaseURL}}/Jenkinsfile"
+      - "{{BaseURL}}/bitbucket-pipelines.yml"
+      - "{{BaseURL}}/.travis.yml"
+      - "{{BaseURL}}/azure-pipelines.yml"
+      - "{{BaseURL}}/.drone.yml"
+      - "{{BaseURL}}/docker-compose.yml"
+      - "{{BaseURL}}/docker-compose.override.yml"
+      - "{{BaseURL}}/Dockerfile"
+      - "{{BaseURL}}/.dockerignore"
+
+      # deep directories & api paths
+      - "{{BaseURL}}/admin/.env"
+      - "{{BaseURL}}/sidekiq"
+      - "{{BaseURL}}/admin/config.php"
+      - "{{BaseURL}}/admin/db.sql"
+      - "{{BaseURL}}/api/.env"
+      - "{{BaseURL}}/api/config.json"
+      - "{{BaseURL}}/api/credentials.json"
+      - "{{BaseURL}}/api/secrets.txt"
+      - "{{BaseURL}}/api/db/backup.sql"
+      - "{{BaseURL}}/server/.env"
+      - "{{BaseURL}}/server/config.js"
+      - "{{BaseURL}}/server/database.sql"
+      - "{{BaseURL}}/old/api/.env"
+      - "{{BaseURL}}/old/backup/db.sql"
+      - "{{BaseURL}}/dev/config.js"
+      - "{{BaseURL}}/dev/credentials.txt"
+      - "{{BaseURL}}/test/.env"
+      - "{{BaseURL}}/private/config.json"
+      - "{{BaseURL}}/private/secret.key"
+      - "{{BaseURL}}/secure/.env"
+      - "{{BaseURL}}/secure/backup.sql"
+      - "{{BaseURL}}/storage/.env"
+      - "{{BaseURL}}/storage/logs/error.log"
+
+      # graphic, cache & system files
+      - "{{BaseURL}}/.DS_Store"
+      - "{{BaseURL}}/Thumbs.db"
+      - "{{BaseURL}}/.htaccess"
+      - "{{BaseURL}}/.htpasswd"
+      - "{{BaseURL}}/web.config"
+      - "{{BaseURL}}/desktop.ini"
+      - "{{BaseURL}}/index.bak"
+      - "{{BaseURL}}/index.old.html"
+      - "{{BaseURL}}/index.save.html"
+
+      # well-known security & openid files
+      - "{{BaseURL}}/.well-known/security.txt"
+      - "{{BaseURL}}/.well-known/change-password"
+      - "{{BaseURL}}/.well-known/assetlinks.json"
+      - "{{BaseURL}}/.well-known/openid-configuration"
+      - "{{BaseURL}}/.well-known/apple-app-site-association"
+
+      # test & old files
+      - "{{BaseURL}}/test.php"
+      - "{{BaseURL}}/test.html"
+      - "{{BaseURL}}/test/test.html"
+      - "{{BaseURL}}/dev/index.html"
+      - "{{BaseURL}}/dev/test.php"
+      - "{{BaseURL}}/devtools.php"
+      - "{{BaseURL}}/old/index.php"
+      - "{{BaseURL}}/old/config.php"
+      - "{{BaseURL}}/old-site/index.html"
+      - "{{BaseURL}}/backup-old.zip"
+      - "{{BaseURL}}/backup/2023-12-db.sql"
+
+      # admin & login paths
+      - "{{BaseURL}}/admin/login.php"
+      - "{{BaseURL}}/admin/portal"
+      - "{{BaseURL}}/admin/secure/"
+      - "{{BaseURL}}/secure/login"
+      - "{{BaseURL}}/internal/login"
+      - "{{BaseURL}}/private/admin"
+      - "{{BaseURL}}/private/console"
+      - "{{BaseURL}}/console/login"
+      - "{{BaseURL}}/panel/login"
+      - "{{BaseURL}}/manager/login.php"
+
+      # log & info leakage paths
+      - "{{BaseURL}}/access.log"
+      - "{{BaseURL}}/error.log"
+      - "{{BaseURL}}/debug.log"
+      - "{{BaseURL}}/server.log"
+      - "{{BaseURL}}/application.log"
+      - "{{BaseURL}}/system.log"
+      - "{{BaseURL}}/logs/access.log"
+      - "{{BaseURL}}/logs/error.log"
+      - "{{BaseURL}}/logs/debug.log"
+      - "{{BaseURL}}/logs/server.log"
+      - "{{BaseURL}}/var/log/nginx/access.log"
+      - "{{BaseURL}}/var/log/nginx/error.log"
+      - "{{BaseURL}}/var/log/apache2/access.log"
+      - "{{BaseURL}}/var/log/apache2/error.log"
+      - "{{BaseURL}}/var/log/httpd/error_log"
+      - "{{BaseURL}}/var/log/messages"
+      - "{{BaseURL}}/log.txt"
+      - "{{BaseURL}}/logfile.txt"
+      - "{{BaseURL}}/trace.txt"
+      - "{{BaseURL}}/trace.log"
+      - "{{BaseURL}}/stacktrace.log"
+      - "{{BaseURL}}/error_trace.log"
+      - "{{BaseURL}}/crash.log"
+      - "{{BaseURL}}/crashdump.log"
+      - "{{BaseURL}}/report.html"
+      - "{{BaseURL}}/report.json"
+      - "{{BaseURL}}/coverage.xml"
+      - "{{BaseURL}}/coverage/coverage-final.json"
+      - "{{BaseURL}}/test-results.xml"
+      - "{{BaseURL}}/junit.xml"
+      - "{{BaseURL}}/output.log"
+      - "{{BaseURL}}/debug_output.log"
+      - "{{BaseURL}}/console.log"
+      - "{{BaseURL}}/npm-debug.log"
+      - "{{BaseURL}}/yarn-error.log"
+      - "{{BaseURL}}/composer.lock"
+      - "{{BaseURL}}/composer.json"
+      - "{{BaseURL}}/package-lock.json"
+      - "{{BaseURL}}/package.json"
+      - "{{BaseURL}}/requirements.txt"
+      - "{{BaseURL}}/Pipfile.lock"
+      - "{{BaseURL}}/Pipfile"
+      - "{{BaseURL}}/.pytest_cache/"
+      - "{{BaseURL}}/.coverage"
+      - "{{BaseURL}}/build/reports/tests/test/index.html"
+      - "{{BaseURL}}/target/surefire-reports/index.html"
+      - "{{BaseURL}}/target/test-classes/"
+      - "{{BaseURL}}/artifacts/logs/"
+      - "{{BaseURL}}/artifacts/debug/"
+      - "{{BaseURL}}/ci/output.log"
+      - "{{BaseURL}}/ci/debug.log"
+      - "{{BaseURL}}/ci/build.log"
+      - "{{BaseURL}}/.logs/"
+      - "{{BaseURL}}/old/logs/error.log"
+      - "{{BaseURL}}/log.bak"
+      - "{{BaseURL}}/logs.bak"
+      - "{{BaseURL}}/error.bak"
+      - "{{BaseURL}}/debug.bak"
+      - "{{BaseURL}}/backup/logs.txt"
+      - "{{BaseURL}}/backup/debug.log"
+
+    matchers-condition: and
+    max-redirects: 0
+    host-redirects: false
+
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "password="
+          - "jwk"
+          - "passcode"
+          - "admin"
+          - "secret="
+          - "key="
+          - "credential="
+          - "token="
+          - "AWS_ACCESS_KEY="
+          - "DB_PASSWORD="
+          - "api_key="
+          - "private_key="
+          - "<title>Sidekiq</title>"
+          - "access_key="
+          - "secret_key="
+          - "client_id="
+          - "client_secret="
+          - "db_user="
+          - "db_pass="
+          - "db_name="
+          - "db_host="
+          - "db_port="
+          - "auth_token="
+          - "jwt_token="
+          - "refresh_token="
+          - "oauth_token="
+          - "session_id="
+          - "csrf_token="
+          - "connection_string="
+          - "mongo_uri="
+          - "redis_password="
+          - "ssl_key="
+          - "ssl_certificate="
+          - "private_key_pem="
+          - "public_key_pem="
+          - "id_rsa="
+          - "ftp_password="
+          - "smtp_password="
+        part: body
+        condition: or
+
+      - type: word
+        words:
+          - "Not Found"
+          - "Page Not Found"
+          - "404 Not Found"
+          - "Error 404"
+          - "Object Moved"
+          - "File not found"
+          - "Resource not found"
+          - "<title>404"
+        part: body
+        negative: true
+        condition: and
+
+    extractors:
+      - type: regex
+        name: sensitive_data
+        part: body
+        regex:
+          - "[A-Za-z0-9]{32,}"      
+          - "AKIA[0-9A-Z]{16}"     
+          - "[0-9a-f]{40}"          
+          - "(?i)password=[^&;\n]*" 
+          - "(?i)secret=[^&;\n]*"   
