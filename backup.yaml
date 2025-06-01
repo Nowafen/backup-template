@@ -257,6 +257,7 @@ requests:
           - "api_key="
           - "private_key="
           - "<title>Sidekiq</title>"
+          - "not allowed"
           - "access_key="
           - "secret_key="
           - "client_id="
@@ -308,4 +309,4 @@ requests:
           - "AKIA[0-9A-Z]{16}"     
           - "[0-9a-f]{40}"          
           - "(?i)password=[^&;\n]*" 
-          - "(?i)secret=[^&;\n]*"   
+          - "(?i)secret=[^&;\n]*"  
