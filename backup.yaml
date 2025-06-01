@@ -2,7 +2,7 @@ id: information-leakage
 info:
   name: Credential and Info Leakage Sensitive Files Fuzzing
   author: MNM
-  severity: medium
+  severity: critical
   description: Scan for sensitive files and credentials with reduced false positives.
   tags:
     - discovery
@@ -289,6 +289,11 @@ requests:
       - type: word
         words:
           - "Not Found"
+          - "Failed"
+          - "not allowed"
+          - "You are not allowed to visit this page"
+          - "Invalid Request"
+          - "Invalid"
           - "Page Not Found"
           - "404 Not Found"
           - "Error 404"
@@ -296,6 +301,9 @@ requests:
           - "File not found"
           - "Resource not found"
           - "<title>404"
+          - "cPanel"
+          - "گم شدید"
+          - "اشتباه"
         part: body
         negative: true
         condition: and
@@ -309,4 +317,4 @@ requests:
           - "AKIA[0-9A-Z]{16}"     
           - "[0-9a-f]{40}"          
           - "(?i)password=[^&;\n]*" 
-          - "(?i)secret=[^&;\n]*"  
+          - "(?i)secret=[^&;\n]*"   
