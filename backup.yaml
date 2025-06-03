@@ -2,18 +2,19 @@ id: information-leakage
 info:
   name: Credential and Info Leakage Sensitive Files Fuzzing
   author: MNM
-  severity: critical
-  description: Scan for sensitive files and credentials with reduced false positives.
+  severity: medium
+  description: Scan for sensitive files, credentials, and OpenID Connect configurations with reduced false positives, filtering by Content-Type and Content-Length, supporting Brotli compression.
   tags:
     - discovery
     - files
     - sensitive
     - credential
     - information
+    - openid
   reference:
     - https://github.com/projectdiscovery/nuclei-templates
 
-requests:
+http:
   - method: GET
     path:
       # credential & config files
@@ -235,55 +236,76 @@ requests:
 
     matchers-condition: and
     max-redirects: 0
-    host-redirects: false
+    redirects: false
 
     matchers:
       - type: status
         status:
           - 200
 
-      - type: word
-        words:
-          - "password="
-          - "jwk"
-          - "passcode"
-          - "admin"
-          - "secret="
-          - "key="
-          - "credential="
-          - "token="
-          - "AWS_ACCESS_KEY="
-          - "DB_PASSWORD="
-          - "api_key="
-          - "private_key="
-          - "<title>Sidekiq</title>"
-          - "not allowed"
-          - "access_key="
-          - "secret_key="
-          - "client_id="
-          - "client_secret="
-          - "db_user="
-          - "db_pass="
-          - "db_name="
-          - "db_host="
-          - "db_port="
-          - "auth_token="
-          - "jwt_token="
-          - "refresh_token="
-          - "oauth_token="
-          - "session_id="
-          - "csrf_token="
-          - "connection_string="
-          - "mongo_uri="
-          - "redis_password="
-          - "ssl_key="
-          - "ssl_certificate="
-          - "private_key_pem="
-          - "public_key_pem="
-          - "id_rsa="
-          - "ftp_password="
-          - "smtp_password="
+      - type: regex
+        name: content-type-allowed
+        part: header
+        regex:
+          - "(?i)content-type:.*application/json.*"
+          - "(?i)content-type:.*text/plain.*"
+          - "(?i)content-type:.*application/x-yaml.*"
+          - "(?i)content-type:.*text/yaml.*"
+          - "(?i)content-type:.*application/xml.*"
+        condition: or
+
+      - type: regex
+        name: content-type-disallowed
+        part: header
+        regex:
+          - "(?i)content-type:.*text/html.*"
+        condition: and
+        negative: true
+
+
+      - type: regex
+        name: sensitive-keywords
         part: body
+        regex:
+          - "(?i)password=.*"
+          - "(?i)jwk.*"
+          - "(?i)jwks_uri.*"
+          - "(?i)issuer.*"
+          - "(?i)passcode.*"
+          - "(?i)admin.*"
+          - "(?i)secret=.*"
+          - "(?i)key=.*"
+          - "(?i)credential=.*"
+          - "(?i)token=.*"
+          - "(?i)AWS_ACCESS_KEY=.*"
+          - "(?i)DB_PASSWORD=.*"
+          - "(?i)api_key=.*"
+          - "(?i)private_key=.*"
+          - "(?i)access_key=.*"
+          - "(?i)secret_key=.*"
+          - "(?i)client_id=.*"
+          - "(?i)client_secret=.*"
+          - "(?i)db_user=.*"
+          - "(?i)db_pass=.*"
+          - "(?i)db_name=.*"
+          - "(?i)db_host=.*"
+          - "(?i)db_port=.*"
+          - "(?i)auth_token=.*"
+          - "(?i)jwt_token=.*"
+          - "(?i)refresh_token=.*"
+          - "(?i)oauth_token=.*"
+          - "(?i)session_id=.*"
+          - "(?i)csrf_token=.*"
+          - "(?i)connection_string=.*"
+          - "(?i)mongo_uri=.*"
+          - "(?i)redis_password=.*"
+          - "(?i)ssl_key=.*"
+          - "(?i)ssl_certificate=.*"
+          - "(?i)private_key_pem=.*"
+          - "(?i)public_key_pem=.*"
+          - "(?i)id_rsa=.*"
+          - "(?i)ftp_password=.*"
+          - "(?i)smtp_password=.*"
         condition: or
 
       - type: word
@@ -313,8 +335,8 @@ requests:
         name: sensitive_data
         part: body
         regex:
-          - "[A-Za-z0-9]{32,}"      
-          - "AKIA[0-9A-Z]{16}"     
-          - "[0-9a-f]{40}"          
-          - "(?i)password=[^&;\n]*" 
-          - "(?i)secret=[^&;\n]*"   
+          - "[A-Za-z0-9]{32,}"      # API keys or long tokens
+          - "AKIA[0-9A-Z]{16}"      # AWS keys
+          - "[0-9a-f]{40}"          # SHA1 keys (e.g., Git)
+          - "(?i)password=[^&;\n]*" # Password values in .env
+          - "(?i)secret=[^&;\n]*"   # Secret values in .env
