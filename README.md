@@ -1,4 +1,4 @@
-## Backup Template for Nuclei
+## Backup Template for Nuclei **v1.2**
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
@@ -44,11 +44,11 @@ Matchers look for HTTP 200 responses and keywords like:
 
 3. Run against a single URL:
    ```bash
-   nuclei -t backup-template/ -u https://example.com
+   nuclei -u https://example.com -t /backup-template
    ```
 
 4. (Optional) Copy into your custom templates folder:
    ```bash
-   cp -r backup-template/ ~/nuclei-templates/http/backup-template
-   nuclei -t http/backup-template -l targets.txt
+   cd backup-template ; cp backup.yaml ~/nuclei-templates/http/
+   nuclei -l targets.txt  -t http/backup.yaml
    ```
