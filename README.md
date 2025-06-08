@@ -1,4 +1,5 @@
-## Backup Template for Nuclei **v1.2**
+# Backup Template for Nuclei
+###### v1.3
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
