@@ -14,23 +14,6 @@ This **Backup Template** is a [Nuclei](https://github.com/projectdiscovery/nucle
 
 ---
 
-## What It Detects
-
-Common files and endpoints such as:
-- `.env`, `.git/config`
-- `config.php`, `credentials.json`
-- `db.sql`, `backup.sql`, `.dump`
-- `error.log`, `debug.log`, `laravel.log`
-- `backup.zip`, `.tar.gz`, `.bak`, `.7z`
-- Editor temp files (`.swp`, `.bak`)
-
-Matchers look for HTTP 200 responses and keywords like:
-- `password`
-- `secret`
-- `token`
-- `Authorization:`
-
-
 ## Usage
 
 1. Install Nuclei (if not already):
