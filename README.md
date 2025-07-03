@@ -12,9 +12,9 @@ This **Backup Template** is a [Nuclei](https://github.com/projectdiscovery/nucle
 
 ## Usage
 
-1. Install Nuclei (if not already):
+1. Install Nuclei at (if not already):
    ```bash
-   go install -v github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest
+   https://github.com/projectdiscovery/nuclei
    ```
 
 2. Clone this repository:
