@@ -1,7 +1,5 @@
 # Backup Template for Nuclei
-###### Version:1.3
-
-[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+###### Version:1.4
 
 ### Introduction
 
@@ -31,8 +29,3 @@ This **Backup Template** is a [Nuclei](https://github.com/projectdiscovery/nucle
    nuclei -u https://example.com -t /backup-template
    ```
 
-4. (Optional) Copy into your custom templates folder:
-   ```bash
-   cd backup-template ; cp backup.yaml ~/nuclei-templates/http/
-   nuclei -l targets.txt  -t http/backup.yaml
-   ```
