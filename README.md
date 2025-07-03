@@ -1,7 +1,5 @@
-# Backup Template for Nuclei
+### Backup Template for Nuclei
 ###### Version:1.4
-
-##### Introduction
 
 This **Backup Template** is a [Nuclei](https://github.com/projectdiscovery/nuclei) template that finds exposed **sensitive files**, **backup archives**, and **configuration files** on web servers. It’s useful for:
 
