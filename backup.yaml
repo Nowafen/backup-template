@@ -1094,6 +1094,17 @@ http:
         part: body
         regex:
           - "(?i)password=.*"
+          - "passcode"
+          - "password"
+          - "database"
+          - "db"
+          - "access_key"
+          - "Database"
+          - "redis"
+          - "ftp_password"
+          - "ftpconfig"
+          - "ssh_config"
+          - "local"
           - "(?i)jwk.*"
           - "(?i)jwks_uri.*"
           - "(?i)issuer.*"
