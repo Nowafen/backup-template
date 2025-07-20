@@ -26,11 +26,3 @@ This **Backup Template** is a [Nuclei](https://github.com/projectdiscovery/nucle
    ```bash
    nuclei -u https://example.com -t /backup-template
    ```
-
-
-
-
-
-
-##### Contact 
-[tellme](https://t.me/Tellmejs)
