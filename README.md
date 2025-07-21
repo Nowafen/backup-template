@@ -12,10 +12,7 @@ This **Backup Template** is a [Nuclei](https://github.com/projectdiscovery/nucle
 
 ## Usage
 
-1. Install Nuclei at (if not already):
-   ```bash
-   https://github.com/projectdiscovery/nuclei
-   ```
+1. Install Nuclei 
 
 2. Clone this repository:
    ```bash
@@ -24,5 +21,5 @@ This **Backup Template** is a [Nuclei](https://github.com/projectdiscovery/nucle
 
 3. Run against a single URL:
    ```bash
-   nuclei -u https://example.com -t /backup-template
+   nuclei -u https://example.com -t backup-template/
    ```
